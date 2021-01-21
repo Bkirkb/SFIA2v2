@@ -1,6 +1,8 @@
 pipeline{
     agent any
     environment{
+        app_version = '1.0'
+        docker_credentials = credentials('docker-hub-log')
         DATABASE_URI = credentials("DATABASE_URI")
     }
     stages{
