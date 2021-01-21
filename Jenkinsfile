@@ -8,7 +8,7 @@ pipeline{
     stages{
         stage("Test Application"){
             steps{
-                sh "test.sh"
+                sh " bash jenkins/test.sh"
             }
         }
         stage("Build & Push"){
