@@ -40,5 +40,8 @@ pipeline{
                 // ssh into swarm manager to deploy the stack
             }
         }
+        post{
+            junit "**/junit.xml"
+        }
     }
 }
