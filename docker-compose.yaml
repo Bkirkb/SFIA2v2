@@ -1,9 +1,9 @@
 version: '3.8'
 services:
   fortune-frontend:
-    container_name: fortune_app2-fortune-service1
-    image: bbkirkby99/fortune2-service1
-    build: ./frontend/service1
+    container_name: fortune_app-fortune-service1
+    image: bbkirkby99/fortune-service1
+    build: ./service1
     ports:
     - target: 5000
       published: 80
@@ -11,14 +11,14 @@ services:
     environment:
       DATABASE_URI: ${DATABASE_URI}
   fortune-getday:
-    container_name: fortune_app2-fortune-service2
-    build: ./backend/service2
-    image: bbkirkby99/fortune2-service2
+    container_name: fortune_app-fortune-service2
+    build: ./service2
+    image: bbkirkby99/fortune-service2
   fortune-getluck:
-    container_name: fortune_app2-fortune-service3
-    build: ./backend/service3
-    image: bbkirkby99/fortune2-service3
+    container_name: fortune_app-fortune-service3
+    build: ./service3
+    image: bbkirkby99/fortune-service3
   fortune-getfortune:
-    container_name: fortune_app2-fortune-service4
-    build: ./backend/service4
-    image: bbkirkby99/fortune2-service4
+    container_name: fortune_app-fortune-service4
+    build: ./service4
+    image: bbkirkby99/fortune-service4
