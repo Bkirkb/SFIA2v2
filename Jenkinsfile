@@ -8,13 +8,12 @@ pipeline{
     stages{
         stage("Test Application"){
             steps{
-                sh "pip3 install -r service1/requirements.txt"
-                sh "python3 -m pytest --cov --cov-report term-missing"
+                sh "test.sh"
             }
         }
         stage("Build & Push"){
             steps{
-                sh "echo hello"
+                sh "echo skip"
                 // install docker and docker-compose
                 // add jenkins to docker group
                 // sudo su - jenkins, docker login
@@ -24,7 +23,7 @@ pipeline{
         }
         stage("Config Management (ansible)"){
             steps{
-                sh "echo hello"
+                sh "echo skip"
                 // write out playbook, inventory
                 // with roles
                 // ssh keys generated from jenkins machine for jenkins user (ssh-keygen)
@@ -35,7 +34,7 @@ pipeline{
         }
         stage("Deploy"){
             steps{
-                sh "echo hello"
+                sh "echo skip"
                 // copy docker-compose.yaml over ssh (scp command)
                 // set env variables on swarm manager
                 // ssh into swarm manager to deploy the stack
