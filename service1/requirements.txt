@@ -4,3 +4,4 @@ pytest
 requests-mock
 pymysql
 flask_sqlalchemy
+flask_testing

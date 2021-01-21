@@ -1,8 +1,9 @@
-from application import app, db
-from application.models import Fortune
 from flask import render_template
 import requests
+from application import app, db
+from application.models import Fortune
 from sqlalchemy import desc
+
 
 @app.route('/')
 @app.route('/index')
