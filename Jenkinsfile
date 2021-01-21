@@ -14,6 +14,7 @@ pipeline{
         }
         stage("Build & Push"){
             steps{
+                sh "echo hello"
                 // install docker and docker-compose
                 // add jenkins to docker group
                 // sudo su - jenkins, docker login
@@ -23,6 +24,7 @@ pipeline{
         }
         stage("Config Management (ansible)"){
             steps{
+                sh "echo hello"
                 // write out playbook, inventory
                 // with roles
                 // ssh keys generated from jenkins machine for jenkins user (ssh-keygen)
@@ -33,6 +35,7 @@ pipeline{
         }
         stage("Deploy"){
             steps{
+                sh "echo hello"
                 // copy docker-compose.yaml over ssh (scp command)
                 // set env variables on swarm manager
                 // ssh into swarm manager to deploy the stack
