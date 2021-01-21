@@ -6,4 +6,5 @@ python3 -m venv venv
 source venv/bin/activate
 pip3 install -r service1/requirements.txt
 pip3 install flask_testing pytest pytest-cov
-python3 -m pyte
+python3 -m pytest --cov --cov-report xml term-missing --junitxml junit.xml
+deactivate
