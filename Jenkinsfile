@@ -1,0 +1,47 @@
+pipeline{
+    agent any
+    environment{
+        app_version = '1.0'
+        docker_credentials = credentials('docker-hub-log')
+        DATABASE_URI = credentials("DATABASE_URI")
+    }
+    stages{
+        stage("Test Application"){
+            steps{
+                sh "test.sh"
+            }
+        }
+        stage("Build & Push"){
+            steps{
+                sh "echo skip"
+                // install docker and docker-compose
+                // add jenkins to docker group
+                // sudo su - jenkins, docker login
+                // docker-compose build and push
+               // sh "docker-compose build && docker-compose push"
+            }
+        }
+        stage("Config Management (ansible)"){
+            steps{
+                sh "echo skip"
+                // write out playbook, inventory
+                // with roles
+                // ssh keys generated from jenkins machine for jenkins user (ssh-keygen)
+                // sudo su - jenkins, install ansible on this machine for jenkins
+                // jenkins runs playbook
+              //  sh "cd ansible && /home/jenkins/.local/bin/ansible-playbook -i inventory playbook.yaml"
+            }
+        }
+        stage("Deploy"){
+            steps{
+                sh "echo skip"
+                // copy docker-compose.yaml over ssh (scp command)
+                // set env variables on swarm manager
+                // ssh into swarm manager to deploy the stack
+            }
+        }
+        post{
+            junit "**/junit.xml"
+        }
+    }
+}
