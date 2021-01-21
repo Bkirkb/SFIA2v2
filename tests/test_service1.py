@@ -1,10 +1,10 @@
 from unittest.mock import patch
 from flask import url_for
 from flask_testing import TestCase
-
 import requests_mock
-from application.models import Fortune2
-from application import app
+
+from application import app , db
+from application.models import Fortune
 
 class TestBase(TestCase):
     def create_app(self):
@@ -13,7 +13,7 @@ class TestBase(TestCase):
     
     def setUp(self):
         db.create_all()
-        db.session.add(Fortune2(yearmon="23 January", fortune="Test fortune", luck="False"))
+        db.session.add(Fortune(day="23 January", fortune="You are a lucky individual, the gods have favoured your path and await good results"))
         db.session.commit()
     
     def tearDown(self):
@@ -24,11 +24,11 @@ class TestResponse(TestBase):
 
   def test_page(self):
     with requests_mock.mock() as a:
-        a.get('http://fortune_app2-fortune-service2:5000/getyearmon', json={"year" : "2023", "month" : "January"} )
-        a.get('http://fortune_app2-fortune-service3:5000/getluck', text="False")
-        a.post('http://fortune_app2-fortune-service4:5000/getfortune', text="Your luck is not with the dice rolls, but your future is bright")
+        a.get('http://fortune_app-fortune-service2:5000/getday', json={"day" : "7", "month" : "January"})
+        a.get('http://fortune_app-fortune-service3:5000/getluck', text="79")
+        a.post('http://fortune_app-fortune-service4:5000/getfortune', text="You are a lucky individual, the gods have favoured your path and await good results")
 
         response = self.client.get(url_for('index'))
 
-        self.assertIn(b'January 2023', response.data)
-        self.assertIn(b'Your luck is not with the dice rolls, but your future is bright', response.data)
+        self.assertIn(b'January 7', response.data)
+        self.assertIn(b'You are a lucky individual, the gods have favoured your path and await good results', response.data)
