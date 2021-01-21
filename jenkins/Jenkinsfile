@@ -8,7 +8,7 @@ pipeline{
     stages{
         stage("Test Application"){
             steps{
-                sh " bash test.sh"
+                sh "bash jenkins/test.sh"
             }
         }
         stage("Build & Push"){
@@ -39,6 +39,11 @@ pipeline{
                 // set env variables on swarm manager
                 // ssh into swarm manager to deploy the stack
             }
+        }
+    }
+    post{
+        always{
+            junit "**/junit.xml"
         }
     }
 }
