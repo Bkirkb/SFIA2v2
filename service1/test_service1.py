@@ -3,8 +3,8 @@ from flask import url_for
 from flask_testing import TestCase
 
 import requests_mock
+from application import app,db
 from application.models import Fortune2
-from application import app
 
 class TestBase(TestCase):
     def create_app(self):
