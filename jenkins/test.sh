@@ -6,5 +6,5 @@ python3 -m venv venv
 source venv/bin/activate
 pip3 install -r jenkins/requirements.txt
 pip3 install flask_testing pytest pytest-cov
-python3 -m pytest  --cov-report xml --cov-report term-missing --junitxml junit.xml
+python3 -m pytest --cov --cov-report xml --cov-report term-missing --junitxml junit.xml
 deactivate
