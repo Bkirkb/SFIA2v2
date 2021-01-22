@@ -11,7 +11,6 @@ pipeline{
         stage("Test Application"){
             steps{
                 script{
-                        sh ". ansible/ansible-script.sh"
                         if (env.rollback == 'false') {
                             sh "bash jenkins/test.sh"
                     }
