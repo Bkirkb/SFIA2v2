@@ -1,0 +1,10 @@
+<html>
+    <body style="text-align: center;">
+        <h1>Practical Project - {{title }}</h1>
+        <nav style="list-style: none;">
+            <li><a href="{{url_for('index') }}">Home</a></li>
+        </nav>
+        {% block body %}
+        {% endblock body %}
+    </body>
+</html>

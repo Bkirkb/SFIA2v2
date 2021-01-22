@@ -1,0 +1,6 @@
+flask
+flask_sqlalchemy
+requests
+requests-mock
+pymysql
+docker-compose

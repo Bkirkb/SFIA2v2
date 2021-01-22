@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  fortune-swarm_service1:
+    container_name: fortune-swarm_service1
+    image: bbkirkby99/fortune2-service1
+    build: ./service1
+    ports:
+    - target: 5000
+      published: 80
+      protocol: tcp
+    environment:
+      DATABASE_URI: ${DATABASE_URI}
+      app_version: ${app_version}
+    deploy:
+      replicas: ${replicas}
+  fortune-swarm_service2:
+    container_name: fortune-swarm_service2
+    image: bbkirkby99/fortune2-service2
+    build: ./service2
+    deploy:
+      replicas: ${replicas}
+  fortune-swarm_service3:
+    container_name: fortune-swarm_service3
+    image: bbkirkby99/fortune2-service3
+    build: ./service3
+    deploy:
+      replicas: ${replicas}
+  fortune-swarm_service4:
+    container_name: fortune-swarm_service4
+    image: bbkirkby99/fortune2-service4
+    build: ./service4
+    deploy:
+      replicas: ${replicas}
+    
