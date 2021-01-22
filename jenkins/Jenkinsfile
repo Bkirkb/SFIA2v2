@@ -10,17 +10,21 @@ pipeline{
     stages{
         stage("Test Application"){
             steps{
-                sh "bash ansible/ansible-script.sh"
-                if (env.rollback == 'false') {
-                sh "bash jenkins/test.sh"
+                script{
+                        sh "bash ansible/ansible-script.sh"
+                        if (env.rollback == 'false') {
+                            sh "bash jenkins/test.sh"
+                    }
                 }
             }
         }
         stage("Build & Push"){
             steps{
-                if (env.rollback == 'false') {
-                sh "docker login"
-                sh "docker-compose build --parallel --build-arg app_version=${app_version} && docker-compose push"
+                script {
+                        if (env.rollback == 'false') {
+                            sh "docker login"
+                            sh "docker-compose build --parallel --build-arg app_version=${app_version} && docker-compose push"
+                        }
                 }
             }
         }
