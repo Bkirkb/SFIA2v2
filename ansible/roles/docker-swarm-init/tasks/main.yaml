@@ -8,4 +8,4 @@
     - name: Init swarm
       community.general.docker_swarm:
         state: present
-        register: swinfo
+      register: swinfo
