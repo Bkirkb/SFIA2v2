@@ -1,7 +1,9 @@
 from application import db
 
-class Fortune(db.Model):
+class Fortune2(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    day = db.Column(db.String(40), nullable=False)
+    yearmon = db.Column(db.String(40), nullable=False)
     fortune = db.Column(db.String(200), nullable=True)
+    luck = db.Column(db.String(10), nullable=True)
     
+

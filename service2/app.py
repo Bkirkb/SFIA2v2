@@ -3,17 +3,13 @@ import random
 
 app = Flask(__name__)
 
-@app.route("/getday", methods=["GET"])
-def getday():
+@app.route("/getyearmon", methods=["GET"])
+def getyearmon():
+        years = ["2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033"]
         months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        year = random.choice(years)
         month = random.choice(months)
-        if month == "February":
-            day = random.randint(1,28)
-        elif month == "April" or month == "June" or month == "September" or month == "November":
-            day = random.randint(1,30)
-        else:
-            day = random.randint(1,31)
-        date={"day" : day, "month" : month}
+        date={"year" : year, "month" : month}
         return jsonify(date)
 
 if __name__ == "__main__":
