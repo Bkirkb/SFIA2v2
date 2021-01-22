@@ -21,7 +21,6 @@ pipeline{
             steps{
                 script {
                         if (env.rollback == 'false') {
-                            sh "docker login"
                             sh "docker-compose build --parallel --build-arg app_version=${app_version} && docker-compose push"
                         }
                 }
