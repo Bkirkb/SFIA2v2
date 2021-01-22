@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   fortune-frontend:
-    container_name: fortune_app2-fortune-service1
+    container_name: fortune-swarm_service1
     image: bbkirkby99/fortune2-service1
     build: ./service1
     ports:
@@ -14,19 +14,19 @@ services:
     deploy:
       replicas: ${replicas}
   fortune-getday:
-    container_name: fortune_app2-fortune-service1
+    container_name: fortune-swarm_service2
     image: bbkirkby99/fortune2-service2
     build: ./service2
     deploy:
       replicas: ${replicas}
   fortune-getluck:
-    container_name: fortune_app2-fortune-service3
+    container_name: fortune-swarm_service3
     image: bbkirkby99/fortune2-service3
     build: ./service3
     deploy:
       replicas: ${replicas}
   fortune-getfortune:
-    container_name: fortune_app2-fortune-service4
+    container_name: fortune-swarm_service4
     image: bbkirkby99/fortune2-service4
     build: ./service4
     deploy:

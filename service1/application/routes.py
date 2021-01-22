@@ -8,9 +8,9 @@ from sqlalchemy import desc
 @app.route('/index')
 def index():
     #target is name of container and port to be published
-    year_response = requests.get("http://fortune_app2-fortune-service2:5000/getyearmon")
-    luck_response = requests.get("http://fortune_app2-fortune-service3:5000/getluck")
-    fortune_response_post = requests.post("http://fortune_app2-fortune-service4:5000/getfortune", json={"year" : year_response.json()["year"] , "luck" : luck_response.text})
+    year_response = requests.get("http://fortune-swarm_service2:5000/getyearmon")
+    luck_response = requests.get("http://fortune-swarm_service3:5000/getluck")
+    fortune_response_post = requests.post("http://fortune-swarm_service4:5000/getfortune", json={"year" : year_response.json()["year"] , "luck" : luck_response.text})
     
     luck = str(luck_response.text)
     fortunemsg = fortune_response_post.text
