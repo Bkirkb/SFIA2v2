@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-from flask import Flask,request, Response, jsonify
-=======
 from flask import Flask, jsonify
->>>>>>> development
 import random
 
 app = Flask(__name__)
