@@ -12,7 +12,7 @@
         - python-setuptools
       state: latest
       update_cache: yes
-    tags: docker-install
+      tags: docker-install
   - name: Get Docker official GPG Key
     apt-key:
       url: https://download.docker.com/linux/ubuntu/gpg
