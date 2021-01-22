@@ -33,10 +33,7 @@ pipeline{
         }
         stage("Deploy"){
             steps{
-                sh "echo skip"
-                // copy docker-compose.yaml over ssh (scp command)
-                // set env variables on swarm manager
-                // ssh into swarm manager to deploy the stack
+                sh "bash jenkins/deploy-script.sh"
             }
         }
     }
