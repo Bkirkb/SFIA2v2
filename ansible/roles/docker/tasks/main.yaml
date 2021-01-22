@@ -18,10 +18,10 @@
       url: https://download.docker.com/linux/ubuntu/gpg
       state: present
     tags: docker-install
-  - name: Add docker packages to repo
+  - name: Add docker packages to repository
     apt_repository: 
       repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
-      tags: docker-install
+    tags: docker-install
   - name: Install Docker/Docker Engine
     apt:
       name: docker-ce
