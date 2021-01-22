@@ -14,7 +14,6 @@ def index():
     fortune_response_post = requests.post("http://fortune-swarm_service4:5000/getfortune", json={"day" : day_response.json()["day"] , "luck" : luck_response.text})
     
     fortunemsg = fortune_response_post.text
-
     day = str(day_response.json()["day"])
     month = str(day_response.json()["month"])
     specdate = str(day + " " + month)

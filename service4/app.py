@@ -26,7 +26,7 @@ def getfortune():
     else:
         fortunemsg="You are the luckiest individual on earth, Your past, present and future has been blessed by higher powers the system predicts a lottery win in the near future"
 
-    return Response(str(fortunemsg) , mimetype='text/plain')
+    return Response(str(fortunemsg), mimetype='text/plain')
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')

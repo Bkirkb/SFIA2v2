@@ -24,9 +24,9 @@ class TestResponse(TestBase):
 
   def test_page(self):
     with requests_mock.mock() as a:
-        a.get('http://fortune_app-fortune-service2:5000/getday', json={"day" : "7", "month" : "January"})
-        a.get('http://fortune_app-fortune-service3:5000/getluck', text="79")
-        a.post('http://fortune_app-fortune-service4:5000/getfortune', text="You are a lucky individual, the gods have favoured your path and await good results")
+        a.get('http://http://fortune-swarm_service2:5000/getday', json={"day" : "7", "month" : "January"})
+        a.get('http://http://fortune-swarm_service3:5000/getluck', text="79")
+        a.post('http://http://fortune-swarm_service4:5000/getfortune', text="You are a lucky individual, the gods have favoured your path and await good results")
 
         response = self.client.get(url_for('index'))
 
