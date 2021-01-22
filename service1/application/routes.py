@@ -11,7 +11,7 @@ def index():
     #target is name of container and port to be published
     day_response = requests.get("http://fortune-swarm_service2:5000/getday")
     luck_response = requests.get("http://fortune-swarm_service3:5000/getluck")
-    fortune_response_post = requests.post("http://fortune-swarm_service4:5000/getfortune", json={"day" : day_response.json()["day"] , "luck" : luck_response.text})
+    fortune_response_post = requests.post("http://fortune-swarm_service4:5000/getfortune", json={"day" : day_response.json()["day"] , "luck" : int(luck_response.text)})
     
     fortunemsg = fortune_response_post.text
     day = str(day_response.json()["day"])
