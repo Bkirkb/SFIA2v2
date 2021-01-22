@@ -14,7 +14,7 @@
       update_cache: yes
     tags: docker-install
   - name: Get Docker official GPG Key
-    apt-key:
+    apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
       state: present
     tags: docker-install
