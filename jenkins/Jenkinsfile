@@ -1,0 +1,46 @@
+pipeline{
+    agent any
+    environment{
+        app_version = '2.0'
+        docker_credentials = credentials('docker-hub-log')
+        DATABASE_URI = credentials("DATABASE_URI")
+        rollback = 'false'
+        replicas = 10
+    }
+    stages{
+        stage("Test Application"){
+            steps{
+                script{
+                        if (env.rollback == 'false') {
+                            sh "bash jenkins/test.sh"
+                    }
+                }
+            }
+        }
+        stage("Build & Push"){
+            steps{
+                script {
+                        if (env.rollback == 'false') {
+                            sh "docker-compose build --parallel --build-arg app_version=${app_version} && docker-compose push"
+                        }
+                }
+            }
+        }
+        stage("Config Management (ansible)"){
+            steps{
+                sh "cd ansible && /home/jenkins/.local/bin/ansible-playbook -i inventory playbook.yaml"
+            }
+        }
+        stage("Deploy"){
+            steps{
+                sh "bash jenkins/deploy-script.sh"
+            }
+        }
+    }
+    post{
+        always{
+            junit "**/junit.xml"
+            cobertura coberturaReportFile: '**/coverage.xml', failNoReports: false, failUnstable: false, onlyStable: false
+        }
+    }
+}

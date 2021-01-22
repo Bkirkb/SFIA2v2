@@ -1,2 +1,6 @@
 flask
+<<<<<<< HEAD
 requests
+=======
+requests
+>>>>>>> development
