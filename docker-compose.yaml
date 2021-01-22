@@ -10,15 +10,25 @@ services:
       protocol: tcp
     environment:
       DATABASE_URI: ${DATABASE_URI}
+      app_version: ${app_version}
+    deploy:
+      replicas: ${replicas}
   fortune-getday:
-    container_name: fortune_app2-fortune-service2
-    build: ./service2
+    container_name: fortune_app2-fortune-service1
     image: bbkirkby99/fortune2-service2
+    build: ./service2
+    deploy:
+      replicas: ${replicas}
   fortune-getluck:
     container_name: fortune_app2-fortune-service3
-    build: ./service3
     image: bbkirkby99/fortune2-service3
+    build: ./service3
+    deploy:
+      replicas: ${replicas}
   fortune-getfortune:
     container_name: fortune_app2-fortune-service4
-    build: ./service4
     image: bbkirkby99/fortune2-service4
+    build: ./service4
+    deploy:
+      replicas: ${replicas}
+    

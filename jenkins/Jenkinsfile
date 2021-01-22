@@ -1,35 +1,32 @@
 pipeline{
     agent any
     environment{
-        app_version = '1.0'
+        app_version = '2.0'
         docker_credentials = credentials('docker-hub-log')
         DATABASE_URI = credentials("DATABASE_URI")
+        rollback = 'false'
+        replicas = 10
     }
     stages{
         stage("Test Application"){
             steps{
+                sh "bash ansible/ansible-script.sh"
+                if (env.rollback == 'false') {
                 sh "bash jenkins/test.sh"
+                }
             }
         }
         stage("Build & Push"){
             steps{
-                sh "echo skip"
-                // install docker and docker-compose
-                // add jenkins to docker group
-                // sudo su - jenkins, docker login
-                // docker-compose build and push
-               // sh "docker-compose build && docker-compose push"
+                if (env.rollback == 'false') {
+                sh "docker login"
+                sh "docker-compose build --parallel --build-arg app_version=${app_version} && docker-compose push"
+                }
             }
         }
         stage("Config Management (ansible)"){
             steps{
-                sh "echo skip"
-                // write out playbook, inventory
-                // with roles
-                // ssh keys generated from jenkins machine for jenkins user (ssh-keygen)
-                // sudo su - jenkins, install ansible on this machine for jenkins
-                // jenkins runs playbook
-              //  sh "cd ansible && /home/jenkins/.local/bin/ansible-playbook -i inventory playbook.yaml"
+                sh "cd ansible && /home/jenkins/.local/bin/ansible-playbook -i inventory playbook.yaml"
             }
         }
         stage("Deploy"){
