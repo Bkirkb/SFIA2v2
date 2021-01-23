@@ -127,5 +127,5 @@ As the app is very simple by nature there are a number of improvements which cou
 #### Author
 Brendan Kirkby
 #### Acknowledgements
- * Harry Volker- Guidance throughout the project, provided the base for many files and folder structures, Help troubleshooting issues and with version control intracacies.
+ * Harry Volker- Guidance throughout the project, provided the base for many files and folder structures, Help troubleshooting issues and with version control intracacies. Github can be found [here](https://github.com/htr-volker)
 
