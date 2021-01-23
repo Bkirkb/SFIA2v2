@@ -80,7 +80,7 @@ A simple web app like the one developed for this project carries little risk for
 After completing the development side of the project a few more risks were identified, mainly relating to the experience that the project leader gained with version control and it's various intricacies, in particular the manual aspect of version control. The full risk assessment can be seen [here](https://docs.google.com/spreadsheets/d/1aVulBmRKDMrYi-YuvX-8LV8_TsfBZZvLFNmAPMKUk24/edit?usp=sharing)
 ![ra-after](Documentation/raafter.PNG)
 ### Database ED
-The database is extremely simple and stores the data in two seperate tables which do not need to share a relationship for each app version, which are called Fortune and Fortune2, this is required since the different implementations make use of different contexts, such as day/month and fortune, and month/year/luck and fortune, this means that the second implementation stores an extra value, and displays it to the user with the "Double Dice?" line.
+The database is extremely simple and stores the data in two seperate tables which do not need to share a relationship for each app version, which are called Fortune and Fortune2, this is required since the different implementations make use of different contexts, such as day/month and fortune, and month+year/luck and fortune.
 ![entity-diagram](Documentation/ed.PNG)
 ### CI Pipeline Before
 ![ci-before](Documentation/cib.PNG)
