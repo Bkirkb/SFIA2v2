@@ -77,3 +77,17 @@ As this is a DevOps style oriented project the various project planning tools an
 A simple web app like the one developed for this project carries little risk for users and the manager of the app themselves, this is because at no point is the user having to enter data to be input into the database, which eliminates any kind of data breach risk or sensitive information being leaked. In addition to this, the database is being used to store basic data that has very little to no impact on the user. As such the main risks for this project are all related to the CI pipeline/the project manager. Below the initial risk assessment for the project can be seen.
 ![ra-before](Documentation/rabefore.PNG)
 ### Risk Assessment after
+After completing the development side of the project a few more risks were identified, mainly relating to the experience that the project leader gained with version control and it's various intricacies, in particular the manual aspect of version control. The full risk assessment can be seen [here](https://docs.google.com/spreadsheets/d/1aVulBmRKDMrYi-YuvX-8LV8_TsfBZZvLFNmAPMKUk24/edit?usp=sharing)
+![ra-after](Documentation/raafter.PNG)
+### Database ED
+The database is extremely simple and stores the data in two seperate tables which do not need to share a relationship for each app version, which are called Fortune and Fortune2, this is required since the different implementations make use of different contexts, such as day/month and fortune, and month/year/luck and fortune, this means that the second implementation stores an extra value, and displays it to the user with the "Double Dice?" line.
+![entity-diagram](Documentation/ed.PNG)
+### CI Pipeline Before
+![ci-before](Documentation/cib.PNG)
+### CI Pipeline After
+![ci-after](Documentation/cib.PNG)
+#### Jenkinsfile
+### Testing
+### Front-end
+### Future Improvements
+
