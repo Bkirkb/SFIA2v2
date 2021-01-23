@@ -98,7 +98,9 @@ Once the app has been tested the next stage of the jenkinsfile runs docker-compo
 Once built and pushed the next step for the jenkins file is to run the ansible playbook which is found within the main file structure. This ansible playbook configures the IPs found in the inventory file with the various roles which they require, and then runs the tasks which are defined in the role's main.yaml files. This essentially configures NGINX for the NGINX instance, installs docker and initialises the swarm for the manager instance, and installs docker and joins the swarm for the worker isntances.
 
 Once the playbook has ran and all environments are configured, the final step of the Jenkinsfile is to run a deploy script, which securely copies the compose yaml file and then ssh's into the manager node to deploy the stack, completing the pipeline and deploying the version of the app.
-
+#### Abstraction Diagram
+![usercon](Documentation/usercon.PNG)
+The user is never directly connected to the main driving forces of the app, they are only able to access the NGINX IP, this NGINX IP essentially balances the load of users between the various replicas that the swarm-workers are hosting in a way which prevents one of the worker/replicas being over used.
 ### Testing
 ![testing-img](Documentation/testing.PNG)
 The application has been tested using unit testing and unit test mocking (using patch and other methods) to achieve a coverage of 100% across both implementations, though the coverage reports provide misleading numbers. To achieve 100% coverage a combination of unit testing and unit test mocking had to be used. This is because each service either used HTTP GET requests, HTTP POST requests, or a combination of both, in addition to services 2,3 and 4 making use of the random function.
