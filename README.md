@@ -72,3 +72,4 @@ Service 4 Implemntation two: Checks what the year value is and also if the user 
 
 ### Planning
 As this is a DevOps style oriented project the various project planning tools and methodologies were adhered to. This meant that the MVP was delivered within a single sprint and that the projects various tasks were displayed and taken from a kanban style board, using trello. The benefit of using a kanban style board is the ability to pick and choose which tasks need to be finished, and to order tasks into specific sections depending on the current state of the task. The full trello board for the project can be seen [here](https://trello.com/b/ArpN6Gwl "Project tracking board")
+![project-tracking](Documentation/ptracking.PNG)
