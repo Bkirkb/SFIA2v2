@@ -83,11 +83,47 @@ After completing the development side of the project a few more risks were ident
 The database is extremely simple and stores the data in two seperate tables which do not need to share a relationship for each app version, which are called Fortune and Fortune2, this is required since the different implementations make use of different contexts, such as day/month and fortune, and month+year/luck and fortune.
 ![entity-diagram](Documentation/ed.PNG)
 ### CI Pipeline Before
-![ci-before](Documentation/cib.PNG)
-### CI Pipeline After
-![ci-after](Documentation/cib.PNG)
-#### Jenkinsfile
+![ci-before](Documentation/cibefore.PNG)
+Before automation was introduced to the project the process from development to the live environment was very manual and tedious, with a CI pipeline the process of getting tasks, pulling from the repo and coding solutions is largely the same, however without a CI pipeline all other set-up has to be manual, this includes testing, containerising, building, pushing and then deploying the app, and this will only deploy it to a single virtual machine without the use of other tools. If a user was able to connect to this single node it could likely bring great risks to the VM, and to access the app the user has to directly interface with this solo VM. The above image illustrates how each process without using a build server is practically manual, this means instead of developing solutions the developer is having to constantly do the same thing over and over again themselves, test, containerise, build, etc.
+### CI Pipeline After/Jenkinsfile
+![ci-after](Documentation/ciafter.PNG)
+After integrating the build server Jenkins and utilizing a configuration management tool the app is able to be automatically tested, containerised, built and deployed to any number of virtual machines, and with the use of nginx as a reverse proxy the user is completely abstracted from the process. This means that the developer has more time to develop features and solutions, and that possible users of the app should have no way to directly interface with the important VMs.
+
+This is achieved through the use of a Jenkins pipeline job that is connected to the github repository directly, and activated using an automated github webhook. Once the pipeline is started the build server searches for a file known as a Jenkinsfile. The Jenkins file is able to set environment variables which are utilized within the repository. It is also able to run shell commands in a cascading order. The Jenkinsfile for this project first sets the environment variables, then tests the application, using a test script which initializes a virtual environment and runs pytest (This stage generates a coverage report due to the inclusion of the cobertura plugin within Jenkins).
+
+The Jenkinsfile also allows the user to reference secure credentials which are attached to the Jenkins instance, meaning that all secret credentials are abstracted even from other developers, It is also impossible to view the previous value of a jenkins credential to my knowledge.
+
+Once the app has been tested the next stage of the jenkinsfile runs docker-compose build --parallel and docker-compose push. This builds the images and pushes them to the user's dockerhub repository, passing through a build version argument to distinguish between the two versions and which images to build.
+
+Once built and pushed the next step for the jenkins file is to run the ansible playbook which is found within the main file structure. This ansible playbook configures the IPs found in the inventory file with the various roles which they require, and then runs the tasks which are defined in the role's main.yaml files. This essentially configures NGINX for the NGINX instance, installs docker and initialises the swarm for the manager instance, and installs docker and joins the swarm for the worker isntances.
+
+Once the playbook has ran and all environments are configured, the final step of the Jenkinsfile is to run a deploy script, which securely copies the compose yaml file and then ssh's into the manager node to deploy the stack, completing the pipeline and deploying the version of the app.
+
 ### Testing
+![testing-img](Documentation/testing.PNG)
+The application has been tested using unit testing and unit test mocking (using patch and other methods) to achieve a coverage of 100% across both implementations, though the coverage reports provide misleading numbers. To achieve 100% coverage a combination of unit testing and unit test mocking had to be used. This is because each service either used HTTP GET requests, HTTP POST requests, or a combination of both, in addition to services 2,3 and 4 making use of the random function.
+
+In order to test service 1 a test database was used, and mock information was inputted as part of the SetUp of the TestBase. to test the HTTP requests the requests_mock function was used to allow multiple get requests and a post request to be mocked at the same time, with sample information. From there assertions were made that the data inputted was present on the page.
+
+To test service 2 and 3 assertions were used in combination with the patch function, this meant that the random functions were forced to return the specified value. Finally service4 was tested using simple assertions that were used with self.client.post.
+
+![testing-img2](Documentation/testing2.PNG)
+
+Another benefit of using a jenkins pipeline to deploy the app is that jenkins provides their users with real-time performance metrics for each stage, which makes it easier to see when improvements or regressions have been made in relation to the app and it's deployment time.
 ### Front-end
+![front-end](Documentation/frontend.PNG)
+The front end of the application is extremely simple and combined html with rudimentary CSS to center the text, provide spacing and alter the heading colour. This combination of HTML and CSS means that the user is provided with all necessary information in a digestible format.
+#### Known Issues
+As of current the only known issue is that when the rolling update is performed, the app produces a variety of SQL alchemy errors, which is due to each implementation using a different database table, and such each different version references a different model within it's files.
 ### Future Improvements
+As the app is very simple by nature there are a number of improvements which could be made to it and the CI pipeline, including but not limited to:
+ * Adding some form of user input to generate the fortune, such as a form or button. This would make the app more interactive and likely more usable, since not everyone would refresh the page to generate a new feature.
+ * Expanding the content of service 3 and 4 to provide a more replayable experience from the perspective of a user.
+ * Have the outcome of service 3 be determined by user input rather than randomly generated, so a user interacts with a game like a dice game or something similar.
+ * Expanding the amount of worker nodes to 3 or 4 from 1 to ensure that the app and reverse proxy has very little chance of producing an error/ being inaccessble.
+ * There is currently a slight downtime when the new version of the app is deployed, which produces various errors visible to the users in the time the deployment stage takes (Roughly 10s), until all containers and replicas have recieved the new version of the app. It would be ideal to reduce this downtime to as close to zero as possible.
+#### Author
+Brendan Kirkby
+#### Acknowledgements
+ * Harry Volker- Guidance throughout the project, provided the base for many files and folder structures, Help troubleshooting issues and with version control intracacies.
 
