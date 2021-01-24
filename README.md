@@ -6,11 +6,11 @@ Practical project for QA academy
     * [Scope](#scope)
     * [Platform Specific](#platform-specific-requirements)
 * [Ideas](#ideas)
-  * [Architecture](#architecture)
+  * [Documentation]
+    * [Risk Assessments](risk-assessments)
     * [Database ED](database-ed)
     * [CI Pipeline](#ci-pipeline)
     * [Abstraction Diagram](abstraction-diagram)
-  * [Risk Assessments](#risk-assessment)
   * [Testing](#testing)
   * [Front-End Design](#front-end-design)
   * [Known Issues](#known-issues)
@@ -74,10 +74,11 @@ Service 4 Implemntation two: Checks what the year value is and also if the user 
 ### Planning
 As this is a DevOps style oriented project the various project planning tools and methodologies were adhered to. This meant that the MVP was delivered within a single sprint and that the projects various tasks were displayed and taken from a kanban style board, using trello. The benefit of using a kanban style board is the ability to pick and choose which tasks need to be finished, and to order tasks into specific sections depending on the current state of the task. The full trello board for the project can be seen [here](https://trello.com/b/ArpN6Gwl "Project tracking board")
 ![project-tracking](Documentation/ptracking.PNG)
-### Risk Assessment before
+### Risk Assessments
+#### Risk Assessment before
 A simple web app like the one developed for this project carries little risk for users and the manager of the app themselves, this is because at no point is the user having to enter data to be input into the database, which eliminates any kind of data breach risk or sensitive information being leaked. In addition to this, the database is being used to store basic data that has very little to no impact on the user. As such the main risks for this project are all related to the CI pipeline/the project manager. Below the initial risk assessment for the project can be seen.
 ![ra-before](Documentation/rabefore.PNG)
-### Risk Assessment after
+#### Risk Assessment after
 After completing the development side of the project a few more risks were identified, mainly relating to the experience that the project leader gained with version control and it's various intricacies, in particular the manual aspect of version control. The full risk assessment can be seen [here](https://docs.google.com/spreadsheets/d/1aVulBmRKDMrYi-YuvX-8LV8_TsfBZZvLFNmAPMKUk24/edit?usp=sharing)
 ![ra-after](Documentation/raafter.PNG)
 ### Database ED
@@ -115,7 +116,7 @@ It is worth noting that at this sprint stage for the MVP, Integration testing wi
 ![testing-img2](Documentation/testing2.PNG)
 
 Another benefit of using a jenkins pipeline to deploy the app is that jenkins provides their users with real-time performance metrics for each stage, which makes it easier to see when improvements or regressions have been made in relation to the app and it's deployment time.
-### Front-end
+### Front-end design
 ![front-end](Documentation/frontend.PNG)
 The front end of the application is extremely simple and combined html with rudimentary CSS to center the text, provide spacing and alter the heading colour. This combination of HTML and CSS means that the user is provided with all necessary information in a digestible format.
 #### Known Issues
