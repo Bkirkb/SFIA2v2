@@ -145,6 +145,7 @@ As the app is very simple by nature there are a number of improvements which cou
  * Have the outcome of service 3 be determined by user input rather than randomly generated, so a user interacts with a game like a dice game or something similar.
  * Expanding the amount of worker nodes to 3 or 4 from 1 to ensure that the app and reverse proxy has very little chance of producing an error/ being inaccessble.
  * There is currently a slight downtime when the new version of the app is deployed, which produces various errors visible to the users in the time the deployment stage takes (Roughly 10s), until all containers and replicas have recieved the new version of the app. It would be ideal to reduce this downtime to as close to zero as possible.
+ * Switching from a public artefact repository (Dockerhub) to a private artefact repository (Nexus) to protect image content.
  
 #### Author
 Brendan Kirkby
