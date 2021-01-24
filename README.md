@@ -6,7 +6,7 @@ Practical project for QA academy
     * [Scope](#scope)
     * [Platform Specific](#platform-specific-requirements)
 * [Ideas](#ideas)
-  * [Documentation]
+  * [Documentation](#documentation)
     * [Risk Assessments](risk-assessments)
     * [Database ED](database-ed)
     * [CI Pipeline](#ci-pipeline)
@@ -74,6 +74,7 @@ Service 4 Implemntation two: Checks what the year value is and also if the user 
 ### Planning
 As this is a DevOps style oriented project the various project planning tools and methodologies were adhered to. This meant that the MVP was delivered within a single sprint and that the projects various tasks were displayed and taken from a kanban style board, using trello. The benefit of using a kanban style board is the ability to pick and choose which tasks need to be finished, and to order tasks into specific sections depending on the current state of the task. The full trello board for the project can be seen [here](https://trello.com/b/ArpN6Gwl "Project tracking board")
 ![project-tracking](Documentation/ptracking.PNG)
+## Documentation
 ### Risk Assessments
 #### Risk Assessment before
 A simple web app like the one developed for this project carries little risk for users and the manager of the app themselves, this is because at no point is the user having to enter data to be input into the database, which eliminates any kind of data breach risk or sensitive information being leaked. In addition to this, the database is being used to store basic data that has very little to no impact on the user. As such the main risks for this project are all related to the CI pipeline/the project manager. Below the initial risk assessment for the project can be seen.
