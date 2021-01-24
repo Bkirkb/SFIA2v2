@@ -7,7 +7,7 @@ Practical project for QA academy
     * [Platform Specific](#platform-specific-requirements)
 * [Ideas](#ideas)
   * [Architecture](#architecture)
-    *  [Database ED](database-ed)
+    * [Database ED](database-ed)
     * [CI Pipeline](#ci-pipeline)
     * [Abstraction Diagram](abstraction-diagram)
   * [Risk Assessments](#risk-assessment)
