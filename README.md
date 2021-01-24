@@ -109,6 +109,8 @@ In order to test service 1 a test database was used, and mock information was in
 
 To test service 2 and 3 assertions were used in combination with the patch function, this meant that the random functions were forced to return the specified value. Finally service4 was tested using simple assertions that were used with self.client.post.
 
+It is worth noting that at this sprint stage for the MVP, Integration testing with selenium has not been implemented. This is due to the fact that the front-end has no interactable buttons or user inputs aside from the navigation menu, which essentially is the refresh button, a default function for the browser that runs the functions for the app on load or "GET" of the index page.
+
 ![testing-img2](Documentation/testing2.PNG)
 
 Another benefit of using a jenkins pipeline to deploy the app is that jenkins provides their users with real-time performance metrics for each stage, which makes it easier to see when improvements or regressions have been made in relation to the app and it's deployment time.
@@ -119,11 +121,12 @@ The front end of the application is extremely simple and combined html with rudi
 As of current the only known issue is that when the rolling update is performed, the app produces a variety of SQL alchemy errors, which is due to each implementation using a different database table, and such each different version references a different model within it's files.
 ### Future Improvements
 As the app is very simple by nature there are a number of improvements which could be made to it and the CI pipeline, including but not limited to:
- * Adding some form of user input to generate the fortune, such as a form or button. This would make the app more interactive and likely more usable, since not everyone would refresh the page to generate a new feature.
+ * Adding some form of user input to generate the fortune, such as a form or button. This would make the app more interactive and likely more usable, since not everyone would refresh the page to generate a new feature. If this user input is added, integration testing would need to be performed at 100% coverage before redoploying the build.
  * Expanding the content of service 3 and 4 to provide a more replayable experience from the perspective of a user.
  * Have the outcome of service 3 be determined by user input rather than randomly generated, so a user interacts with a game like a dice game or something similar.
  * Expanding the amount of worker nodes to 3 or 4 from 1 to ensure that the app and reverse proxy has very little chance of producing an error/ being inaccessble.
  * There is currently a slight downtime when the new version of the app is deployed, which produces various errors visible to the users in the time the deployment stage takes (Roughly 10s), until all containers and replicas have recieved the new version of the app. It would be ideal to reduce this downtime to as close to zero as possible.
+ 
 #### Author
 Brendan Kirkby
 #### Acknowledgements
