@@ -68,7 +68,6 @@ instance/
 data.db
 test.db
 
-
 # Scrapy stuff:
 .scrapy
 
