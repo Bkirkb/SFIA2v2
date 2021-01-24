@@ -75,22 +75,28 @@ Service 4 Implemntation two: Checks what the year value is and also if the user 
 ### Planning
 As this is a DevOps style oriented project the various project planning tools and methodologies were adhered to. This meant that the MVP was delivered within a single sprint and that the projects various tasks were displayed and taken from a kanban style board, using trello. The benefit of using a kanban style board is the ability to pick and choose which tasks need to be finished, and to order tasks into specific sections depending on the current state of the task. The full trello board for the project can be seen [here](https://trello.com/b/ArpN6Gwl "Project tracking board")
 ![project-tracking](Documentation/ptracking.PNG)
+
 ## Documentation
 ### Risk Assessments
 #### Risk Assessment before
 A simple web app like the one developed for this project carries little risk for users and the manager of the app themselves, this is because at no point is the user having to enter data to be input into the database, which eliminates any kind of data breach risk or sensitive information being leaked. In addition to this, the database is being used to store basic data that has very little to no impact on the user. As such the main risks for this project are all related to the CI pipeline/the project manager. Below the initial risk assessment for the project can be seen.
 ![ra-before](Documentation/rabefore.PNG)
+
 #### Risk Assessment after
 After completing the development side of the project a few more risks were identified, mainly relating to the experience that the project leader gained with version control and it's various intricacies, in particular the manual aspect of version control. The full risk assessment can be seen [here](https://docs.google.com/spreadsheets/d/1aVulBmRKDMrYi-YuvX-8LV8_TsfBZZvLFNmAPMKUk24/edit?usp=sharing)
 ![ra-after](Documentation/raafter.PNG)
+
 ### Database ED
 The database is extremely simple and stores the data in two seperate tables which do not need to share a relationship for each app version, which are called Fortune and Fortune2, this is required since the different implementations make use of different contexts, such as day/month and fortune, and month+year/luck and fortune.
 ![entity-diagram](Documentation/ed.PNG)
+
 ### CI Pipeline Before
 ![ci-before](Documentation/cibefore.PNG)
+
 Before automation was introduced to the project the process from development to the live environment was very manual and tedious, with a CI pipeline the process of getting tasks, pulling from the repo and coding solutions is largely the same, however without a CI pipeline all other set-up has to be manual, this includes testing, containerising, building, pushing and then deploying the app, and this will only deploy it to a single virtual machine without the use of other tools. If a user was able to connect to this single node it could likely bring great risks to the VM, and to access the app the user has to directly interface with this solo VM. The above image illustrates how each process without using a build server is practically manual, this means instead of developing solutions the developer is having to constantly do the same thing over and over again themselves, test, containerise, build, etc.
 ### CI Pipeline After/Jenkinsfile
 ![ci-after](Documentation/ciafter.PNG)
+
 After integrating the build server Jenkins and utilizing a configuration management tool the app is able to be automatically tested, containerised, built and deployed to any number of virtual machines, and with the use of nginx as a reverse proxy the user is completely abstracted from the process. This means that the developer has more time to develop features and solutions, and that possible users of the app should have no way to directly interface with the important VMs.
 
 This is achieved through the use of a Jenkins pipeline job that is connected to the github repository directly, and activated using an automated github webhook. Once the pipeline is started the build server searches for a file known as a Jenkinsfile. The Jenkins file is able to set environment variables which are utilized within the repository. It is also able to run shell commands in a cascading order. The Jenkinsfile for this project first sets the environment variables, then tests the application, using a test script which initializes a virtual environment and runs pytest (This stage generates a coverage report due to the inclusion of the cobertura plugin within Jenkins).
@@ -104,14 +110,17 @@ Once built and pushed the next step for the jenkins file is to run the ansible p
 Once the playbook has ran and all environments are configured, the final step of the Jenkinsfile is to run a deploy script, which securely copies the compose yaml file and then ssh's into the manager node to deploy the stack, completing the pipeline and deploying the version of the app.
 #### Abstraction Diagram
 ![usercon](Documentation/usercon.PNG)
+
 The user is never directly connected to the main driving forces of the app, they are only able to access the NGINX IP, this NGINX IP essentially balances the load of users between the various replicas that the swarm-workers are hosting in a way which prevents one of the worker/replicas being over used.
 #### Services
 ![services](Documentation/services.PNG)
+
 The application runs by having services 1,2,3 and 4 on seperate containers within a docker swarm, with multiple replicas of each service. Running them on a swarm in containers means that they are able to interface with each other on their own private network. Service one sends get requests to service 2 and 3 to recieve an object that they generate, and then sends that information to service 4 as a post request, with service 4 sending back the data to complete the set. From this point service 1 interacts with the database and selects the past 6 fortunes to show to the user, while inserting the new values generated by services 2,3 and 4.
 
 Finally service 1 shows the user their fortune, along with the past 6 fortunes.
 ### Testing
 ![testing-img](Documentation/testing.PNG)
+
 The application has been tested using unit testing and unit test mocking (using patch and other methods) to achieve a coverage of 100% across both implementations, though the coverage reports provide misleading numbers. To achieve 100% coverage a combination of unit testing and unit test mocking had to be used. This is because each service either used HTTP GET requests, HTTP POST requests, or a combination of both, in addition to services 2,3 and 4 making use of the random function.
 
 In order to test service 1 a test database was used, and mock information was inputted as part of the SetUp of the TestBase. to test the HTTP requests the requests_mock function was used to allow multiple get requests and a post request to be mocked at the same time, with sample information. From there assertions were made that the data inputted was present on the page.
@@ -125,6 +134,7 @@ It is worth noting that at this sprint stage for the MVP, Integration testing wi
 Another benefit of using a jenkins pipeline to deploy the app is that jenkins provides their users with real-time performance metrics for each stage, which makes it easier to see when improvements or regressions have been made in relation to the app and it's deployment time.
 ### Front-end design
 ![front-end](Documentation/frontend.PNG)
+
 The front end of the application is extremely simple and combined html with rudimentary CSS to center the text, provide spacing and alter the heading colour. This combination of HTML and CSS means that the user is provided with all necessary information in a digestible format.
 #### Known Issues
 As of current the only known issue is that when the rolling update is performed, the app produces a variety of SQL alchemy errors, which is due to each implementation using a different database table, and such each different version references a different model within it's files.
