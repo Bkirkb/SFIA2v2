@@ -5,32 +5,22 @@ from service2.app import app
 from random import choice, randint
 
 
+months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+years = ["2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033"]
+totalcomb = 12 * 12
+
+
 class TestBase(TestCase):
     def create_app(self):
         return app
 
 class TestResponse(TestBase):
 
-    def testmonth(self):
-            with patch("random.choice") as random:
-                random.return_value = "January"
-                response = self.client.get(url_for('getday'))
+    def testyearmon(self):
+            with patch("random.choice") as random2:
+                random2.side_effect = ["January", "2022"]
+                response = self.client.get(url_for('getyearmon'))
                 self.assertIn(b'January', response.data)
+    
 
-    def testmonth2(self):
-            with patch("random.choice") as random:
-                random.return_value = "April"
-                response = self.client.get(url_for('getday'))
-                self.assertIn(b'April', response.data)
-
-    def testmonth3(self):
-            with patch("random.choice") as random:
-                random.return_value = "February"
-                response = self.client.get(url_for('getday'))
-                self.assertIn(b'February', response.data)
-
-    def testday(self):
-            with patch("random.randint") as random2:
-                random2.return_value = 28
-                response = self.client.get(url_for('getday'))
-                self.assertIn(b'28', response.data)
+        
